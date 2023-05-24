@@ -29,9 +29,7 @@ function datos(){
 
     let eBinario= document.getElementById("nobinario")
     let binario= eBinario.value;
-    console.log(binario)
-
-    
+    console.log(binario) 
 
 }
 
