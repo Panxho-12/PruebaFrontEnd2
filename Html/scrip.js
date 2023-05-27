@@ -20,24 +20,70 @@ function datos(){
     console.log(date)
 
     let eHombre= document.getElementById("hombre")
-    let hombre= eHombre.value;
+    let hombre= eHombre.checked;
     console.log(hombre)
 
     let eMujer= document.getElementById("mujer")
-    let mujer= eMujer.value;
+    let mujer= eMujer.checked;
     console.log(mujer)
 
     let eBinario= document.getElementById("nobinario")
-    let binario= eBinario.value;
-    console.log(binario) 
+    let binario= eBinario.checked
+    console.log(binario)
+
+    let genero= {"hombre":hombre,"mujer":mujer,"nobinario":binario}
+
+    if(eHombre==null){
+        hombre =[genero]
+    }
+    else if(eMujer==null){
+        mujer = [genero]
+    }
+    else{
+        binario = [genero]
+    }
+}
+
+var registro = () =>{
+    let eNombre = document.getElementById("nombre")
+    let nombre = eNombre.value;
+
+    let eMail = document.getElementById("email")
+    let mail = eMail.value;
+
+    let ePhono = document.getElementById("telefono")
+    let phono = ePhono.value;
+
+    let ePwd = document.getElementById("pwd")
+    let pwd = ePwd.value;
+
+    let eDate = document.getElementById("fecha")
+    let date = eDate.value;
+
+    let eHombre = document.getElementById("hombre")
+    let hombre = eHombre.checked;
+
+    let eMujer = document.getElementById("mujer")
+    let mujer = eMujer.checked;
+
+    let eBinario = document.getElementById("nobinario")
+    let binario = eBinario.checked;
+
+    // let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"hombre":hombre,"mujer":mujer,"nobinario":binario}
+    let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"hombre":hombre,mujer,binario}
+    let listadoIngreso = localStorage.getItem("ingreso")
+    let listadoAntiguo = JSON.parse(listadoIngreso);
+    if (listadoAntiguo==null){
+        listadoNuevo = [ingreso]
+    }else{
+        listadoNuevo = [...listadoAntiguo,ingreso]
+    }
+    console.log(ingreso)
+    console.log(listadoAntiguo)
+    console.log(listadoNuevo)
+    localStorage.setItem("ingresos",JSON.stringify(listadoNuevo))
 
 }
 
-
-
-
-
-
-
-
 document.getElementById("btn").addEventListener("click",datos)
+document.getElementById("btn").addEventListener("click",registro)
