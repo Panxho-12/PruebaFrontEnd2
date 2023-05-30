@@ -31,17 +31,10 @@ function datos(){
     let binario= eBinario.checked
     console.log(binario)
 
-    let genero= {"hombre":hombre,"mujer":mujer,"nobinario":binario}
 
-    if(eHombre==null){
-        hombre =[genero]
-    }
-    else if(eMujer==null){
-        mujer = [genero]
-    }
-    else{
-        binario = [genero]
-    }
+
+  
+
 }
 
 var registro = () =>{
@@ -69,8 +62,19 @@ var registro = () =>{
     let eBinario = document.getElementById("nobinario")
     let binario = eBinario.checked;
 
+      // Contiene el genero 
+      var sexo = ""
+    
+      if (hombre==true){
+          sexo= "Hombre"
+      }
+      else if(mujer==true){
+          sexo = "Mujer"
+      }
+      else{sexo = "Binario"}
+
     // let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"hombre":hombre,"mujer":mujer,"nobinario":binario}
-    let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"hombre":hombre,mujer,binario}
+    let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"genero":sexo}
     let listadoIngreso = localStorage.getItem("ingreso")
     let listadoAntiguo = JSON.parse(listadoIngreso);
     if (listadoAntiguo==null){
@@ -81,7 +85,7 @@ var registro = () =>{
     console.log(ingreso)
     console.log(listadoAntiguo)
     console.log(listadoNuevo)
-    localStorage.setItem("ingresos",JSON.stringify(listadoNuevo))
+    localStorage.setItem("ingreso",JSON.stringify(listadoNuevo))
 
 }
 
