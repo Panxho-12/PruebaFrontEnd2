@@ -1,4 +1,4 @@
-function datos(){
+var  datos = ()=> {
     let eNombre= document.getElementById("nombre");
     let nombre= eNombre.value;
     console.log(nombre)
@@ -71,7 +71,7 @@ var registro = () =>{
       else if(mujer==true){
           sexo = "Mujer"
       }
-      else{sexo = "Binario"}
+      else{sexo = "No Binario"}
 
     // let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"hombre":hombre,"mujer":mujer,"nobinario":binario}
     let ingreso = {"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"genero":sexo}
