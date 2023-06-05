@@ -113,9 +113,8 @@ var registro = () =>{
         let element = listadoNuevo [i];
         eBtn.addEventListener("click",()=>{alert("hola "+element.nombre+" "+element.sexo)})  
     }
+    //se termina la tabla
 }
-
-
 
 
 
