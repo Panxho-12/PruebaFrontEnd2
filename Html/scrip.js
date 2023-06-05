@@ -38,6 +38,7 @@ var  datos = ()=> {
 }
 
 var registro = () =>{
+    let eContenedorTabla = document.getElementById("contenedorTabla")
     let eNombre = document.getElementById("nombre")
     let nombre = eNombre.value;
 
@@ -86,8 +87,40 @@ var registro = () =>{
     console.log(listadoAntiguo)
     console.log(listadoNuevo)
     localStorage.setItem("ingreso",JSON.stringify(listadoNuevo))
-
+    
+    //Se comienza con la creacion de la tabla
+    render = "<table>"
+    render+= "<tr><th>Nombre</th><th>Email</th><th>Telefono</th><th>Contraseña</th><th>Fecha</th><th>Genero</th></tr>"
+    for (let i = 0; i < listadoNuevo.length; i++) {
+        const element = listadoNuevo [i];
+        render+="<tr>"
+        render+="<td>"+element.nombre+"</td>"
+        render+="<td>"+element.mail+"</td>"
+        render+="<td>"+element.phono+"</td>"
+        render+="<td>"+element.pwd+"</td>"
+        render+="<td>"+element.date+"</td>"
+        render+="<td>"+element.sexo+"</td>"
+        render+="<td>"
+        render+="<button id='btnEditar"+i+"'>Editar</button>"
+        render+="<button>Eliminar</button>"
+        render+="</td>"
+        render+="</tr>"
+    }
+    render+= "</table>"
+    eContenedorTabla.innerHTML = render
+    for (let i = 0; i < listadoNuevo.length; i++) {
+        var eBtn = document.getElementById("btnEditar"+i)
+        let element = listadoNuevo [i];
+        eBtn.addEventListener("click",()=>{alert("hola "+element.nombre+" "+element.sexo)})  
+    }
 }
+
+
+
+
+
+
+
 
 document.getElementById("btn").addEventListener("click",datos)
 document.getElementById("btn").addEventListener("click",registro)
