@@ -111,7 +111,7 @@ var registro = () =>{
     for (let i = 0; i < listadoNuevo.length; i++) {
         var eBtn = document.getElementById("btnEditar"+i)
         let element = listadoNuevo [i];
-        eBtn.addEventListener("click",()=>{alert("hola "+element.nombre+" "+element.sexo)})  
+        eBtn.addEventListener("click",()=>{alert("hola "+element.nombre+" "+element.genero)})  
     }
     //se termina la tabla
 }
