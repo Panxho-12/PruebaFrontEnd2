@@ -10,7 +10,6 @@ var modificar = (listadoNuevo)=>{
     let eBtnEditarUp = document.getElementById('btnEditar')
 
 
-    let indice = eBtnEditarUp.value;
     let nombre= eNombre.value;
     let mail= eMail.value;
     let phono= ePhono.value;
@@ -19,17 +18,18 @@ var modificar = (listadoNuevo)=>{
     let hombre= eHombre.checked;
     let mujer= eMujer.checked;
     let binario= eBinario.checked;
+    let indice = eBtnEditarUp.value;
 
     listadoNuevo[indice].nombre = nombre;
-    listadoNuevo[indice].mail = mail;
-    listadoNuevo[indice].phono = phono;
-    listadoNuevo[indice].pdw = pdw;
-    listadoNuevo[indice].date = date;
+    listadoNuevo[indice].email = mail;
+    listadoNuevo[indice].telefono = phono;
+    listadoNuevo[indice].password = pdw;
+    listadoNuevo[indice].fecha = date;
     listadoNuevo[indice].hombre = hombre;
     listadoNuevo[indice].mujer = mujer;
     listadoNuevo[indice].binario = binario;
     localStorage.setItem('personas',JSON.stringify(listadoNuevo));
-    cargartTabla(lista)
+    cargarTabla(listadoNuevo)
 }
 
 
@@ -37,8 +37,9 @@ var eliminar = (listadoNuevo)=>{
     let eBtnEliminarUp = document.getElementById('btnEliminar');
     let indice = eBtnEliminarUp.value;
     lista = listadoNuevo.filter((p)=>p.id!=indice)
+    lista = lista.map((p,index)=>{return{...p,'id':index}})
     localStorage.setItem('personas',JSON.stringify(lista));
-    cargartTabla(lista)
+    cargarTabla(lista)
 }
 
 
@@ -66,7 +67,7 @@ var cargarTabla = (listadoNuevo)=>{
         render+="<td>"+element.genero+"</td>"
         render+="<td>"
         render+="<button id='btnEditar"+i+"'>Editar</button>"
-        render+="<button>Eliminar</button>"
+        render+="<button id='btnEliminar"+i+"'>Eliminar</button>"
         render+="</td>"
         render+="</tr>"
     }
@@ -78,10 +79,10 @@ var cargarTabla = (listadoNuevo)=>{
         let element = listadoNuevo[i]
         eBtn.addEventListener("click",()=>{
             eNombre.value = element.nombre;
-            eMail.value = element.mail;
-            ePhono.value = element.phono;
-            ePwd.value = element.pdw;
-            eDate.value = element.date;
+            eMail.value = element.email;
+            ePhono.value = element.telefono;
+            ePwd.value = element.password;
+            eDate.value = element.fecha;
             eHombre.checked = element.hombre
             eMujer.checked = element.mujer
             eBinario.checked = element.binario
@@ -94,19 +95,19 @@ var cargarTabla = (listadoNuevo)=>{
         })
         eBtn2.addEventListener("click",()=>{
             eNombre.value = element.nombre;
-            eMail.value = element.mail;
-            ePhono.value = element.phono;
-            ePwd.value = element.pdw;
-            eDate.value = element.date;
+            eMail.value = element.email;
+            ePhono.value = element.telefono;
+            ePwd.value = element.password;
+            eDate.value = element.fecha;
             eHombre.checked = element.hombre
             eMujer.checked = element.mujer
             eBinario.checked = element.binario
-            let sEditar = "<button type='button' id='btnEliminar' value='"+i+"'>Eliminar</button>";
+            let sEliminar = "<button type='button' id='btnEliminar' value='"+i+"'>Eliminar</button>";
 
             let contenedorBoton = document.getElementById('contenedorBtnExtra');
-            contenedorBoton.innerHTML = sEditar
-            let eBtnEditarUp = document.getElementById('btnEliminar');
-            eBtnEditarUp.addEventListener('click',()=>eliminar(listadoNuevo))
+            contenedorBoton.innerHTML = sEliminar
+            let eBtnEliminarUp = document.getElementById('btnEliminar');
+            eBtnEliminarUp.addEventListener('click',()=>eliminar(listadoNuevo))
         })     
     }
 }
@@ -185,7 +186,7 @@ var registro = () =>{
       else{sexo = "No Binario"}
 
 
-    let listadoIngreso = localStorage.getItem("ingreso")
+    let listadoIngreso = localStorage.getItem('personas')
     let listadoAntiguo = JSON.parse(listadoIngreso);
     if (listadoAntiguo==null){
         let ingreso = {"id":0,"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"genero":sexo}
@@ -194,12 +195,16 @@ var registro = () =>{
         let ingreso = {"id":listadoAntiguo.length,"nombre":nombre,"email":mail,"telefono":phono,"password":pwd,"fecha":date,"genero":sexo}
         listadoNuevo = [...listadoAntiguo,ingreso]
     }
-    localStorage.setItem("ingreso",JSON.stringify(listadoNuevo))
+    localStorage.setItem('personas',JSON.stringify(listadoNuevo))
 
     cargarTabla(listadoNuevo)
 }
 
+var cargarDatos = ()=>{
+    let listadoPersonas = localStorage.getItem('personas');
+    let listadoAntiguo = JSON.parse(listadoPersonas);
+    cargarTabla(listadoAntiguo)
+}
 
-
-document.getElementById("btn").addEventListener("click",datos)
 document.getElementById("btn").addEventListener("click",registro)
+addEventListener('load',cargarDatos)
